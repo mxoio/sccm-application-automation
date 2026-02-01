@@ -1,0 +1,44 @@
+{
+  "Settings": {
+    "SiteCode": "ABC",
+    "ContentRoot": "\\\\YOURSERVER\\SCCM-Source\\Applications",
+    "DPName": "sccm-dp.contoso.com",
+    "LimitingCollection": "All Systems",
+    "DefaultCollection": null,
+    "DefaultPurpose": "Available"
+  },
+
+  "Applications": [
+    {
+      "WingetId": "VideoLAN.VLC",
+      "AppName": "VLC",
+      "Collection": "SCCM Software VLC"
+    },
+    {
+      "WingetId": "7zip.7zip",
+      "AppName": "7-Zip",
+      "Collection": "SCCM Software 7-Zip"
+    },
+    {
+      "WingetId": "Notepad++.Notepad++",
+      "AppName": "Notepad++",
+      "Collection": "SCCM Software Notepad++"
+    },
+    {
+      "WingetId": "PuTTY.PuTTY",
+      "AppName": "PuTTY",
+      "Collection": "SCCM Software PuTTY"
+    },
+    {
+      "WingetId": "Mozilla.Firefox",
+      "AppName": "Firefox",
+      "Collection": "SCCM Software Firefox"
+    },
+    {
+      "WingetId": "Git.Git",
+      "AppName": "Git",
+      "Collection": "SCCM Software Git",
+      "Version": "2.47.0"
+    }
+  ]
+}

@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SCCM Application Pipeline Configuration",
+  "description": "Schema for apps-config.json used by the SCCM Application Automation Pipeline",
+  "type": "object",
+  "required": ["Settings", "Applications"],
+  "properties": {
+    "Settings": {
+      "type": "object",
+      "description": "Global pipeline settings",
+      "required": ["SiteCode", "ContentRoot", "DPName"],
+      "properties": {
+        "SiteCode": {
+          "type": "string",
+          "pattern": "^[A-Z0-9]{2,3}$",
+          "description": "SCCM site code (2-3 alphanumeric characters)"
+        },
+        "ContentRoot": {
+          "type": "string",
+          "pattern": "^\\\\\\\\",
+          "description": "UNC path to the SCCM content share (e.g., \\\\server\\share\\Applications)"
+        },
+        "DPName": {
+          "type": "string",
+          "description": "FQDN of the distribution point (e.g., sccm-dp01.domain.com)"
+        },
+        "DefaultCollection": {
+          "type": ["string", "null"],
+          "description": "Default collection name for deployments (can be null)"
+        },
+        "DefaultPurpose": {
+          "type": "string",
+          "enum": ["Available", "Required"],
+          "default": "Available",
+          "description": "Default deployment purpose"
+        },
+        "LimitingCollection": {
+          "type": "string",
+          "default": "All Systems",
+          "description": "Limiting collection for auto-created collections"
+        }
+      }
+    },
+    "Applications": {
+      "type": "array",
+      "description": "List of applications to process",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": ["WingetId"],
+        "properties": {
+          "WingetId": {
+            "type": "string",
+            "pattern": "^\\w+\\.\\w+",
+            "description": "Winget package identifier (e.g., 7zip.7zip)"
+          },
+          "AppName": {
+            "type": "string",
+            "maxLength": 100,
+            "description": "Display name for the application (defaults to last part of WingetId)"
+          },
+          "Version": {
+            "type": "string",
+            "description": "Pinned version (if omitted, latest version is fetched from winget)"
+          },
+          "Collection": {
+            "type": "string",
+            "description": "Target collection for deployment"
+          },
+          "Purpose": {
+            "type": "string",
+            "enum": ["Available", "Required"],
+            "description": "Deployment purpose (overrides DefaultPurpose)"
+          },
+          "ExeSilentArgs": {
+            "type": "string",
+            "description": "Custom silent installation arguments for EXE installers"
+          }
+        }
+      }
+    }
+  }
+}
